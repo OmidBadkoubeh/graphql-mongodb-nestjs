@@ -8,8 +8,13 @@ import { LessonType } from './lesson.type';
 export class LessonResolver {
   constructor(private lessonService: LessonService) {}
 
+  @Query((returns) => [LessonType])
+  lessons(): Promise<Lesson[]> {
+    return this.lessonService.getLessons();
+  }
+
   @Query((returns) => LessonType)
-  lesson(@Args('getLessonInput') id: GetLessonInput) {
+  lesson(@Args('getLessonInput') id: GetLessonInput): Promise<Lesson> {
     return this.lessonService.getLesson(id);
   }
 
